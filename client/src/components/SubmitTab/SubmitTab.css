@@ -27,3 +27,9 @@
     color: white;
     background: #4caf50;
 }
+
+@media only screen and (max-width: 600px) {   
+    .tabItemContainer{
+        padding: 0.5rem;
+    }
+}
