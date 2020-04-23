@@ -1,0 +1,29 @@
+.tabContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tabItemContainer{
+    display: flex;
+    background: white;
+    padding: 1rem;
+    justify-content: center;
+    flex:1;
+    flex-direction: column;
+}
+
+.tabItem{
+    padding: 0.5rem;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.tabItem-active{
+    padding: 0.5rem;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    color: white;
+    background: #4caf50;
+}

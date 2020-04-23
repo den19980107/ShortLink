@@ -16,58 +16,121 @@ let db = mongoose.connection;
 
 //check connection
 db.once('open', function () {
-   console.log("connect to mongodb");
+    console.log("connect to mongodb");
 
-   //init Stream
-   gfs = Grid(db.db, mongoose.mongo);
-   gfs.collection('uploads');
+    //init Stream
+    gfs = Grid(db.db, mongoose.mongo);
+    gfs.collection('uploads');
 });
 
 //create storage engine
 
+// img
 const imgStorage = new GridFsStorage({
-   url: config.MONGODB.MONGODB_URI,
-   file: (req, file) => {
-      return new Promise((resolve, reject) => {
-         crypto.randomBytes(16, (err, buf) => {
-            if (err) {
-               return reject(err);
-            }
-            const filename = buf.toString('hex') + path.extname(file.originalname);
-            const fileInfo = {
-               filename: filename,
-               bucketName: 'uploads'
-            };
-            resolve(fileInfo);
-         });
-      });
-   }
+    url: config.MONGODB.MONGODB_URI,
+    file: (req, file) => {
+        return new Promise((resolve, reject) => {
+            console.log(file)
+            crypto.randomBytes(16, (err, buf) => {
+                if (err) {
+                    return reject(err);
+                }
+                const filename = buf.toString('hex') + path.extname(file.originalname);
+                const fileInfo = {
+                    filename: filename,
+                    bucketName: 'uploads'
+                };
+                resolve(fileInfo);
+            });
+        });
+    }
 });
 
 const imgUploader = multer({
-   storage: imgStorage
+    storage: imgStorage
 });
+// end of img
+
+// video 
+const videoStorage = new GridFsStorage({
+    url: config.MONGODB.MONGODB_URI,
+    file: (req, file) => {
+        return new Promise((resolve, reject) => {
+            crypto.randomBytes(16, (err, buf) => {
+                if (err) {
+                    return reject(err);
+                }
+                const filename = buf.toString('hex') + path.extname(file.originalname);
+                const fileInfo = {
+                    filename: filename,
+                    bucketName: 'videos'
+                };
+                resolve(fileInfo);
+            });
+        });
+    }
+});
+
+const videoUploader = multer({
+    storage: videoStorage
+});
+
+// end of video
+
+
+// file 
+const fileStorage = new GridFsStorage({
+    url: config.MONGODB.MONGODB_URI,
+    file: (req, file) => {
+        return new Promise((resolve, reject) => {
+            crypto.randomBytes(16, (err, buf) => {
+                if (err) {
+                    return reject(err);
+                }
+                const filename = buf.toString('hex') + path.extname(file.originalname);
+                const fileInfo = {
+                    filename: filename,
+                    bucketName: 'file'
+                };
+                resolve(fileInfo);
+            });
+        });
+    }
+});
+
+const fileUploader = multer({
+    storage: fileStorage
+});
+
+// end of fuke
+
 
 
 const image = "image";
+const video = "video"
+const file = "file"
 export function getUploader(key: string) {
-   switch (key) {
-      case image:
-         return imgUploader
-   }
+    switch (key) {
+        case image:
+            return imgUploader
+        case video:
+            return videoUploader
+        case file:
+            return fileUploader
+    }
 }
 
 
 export async function findFileByFileName(filename: string): Promise<ReadStream> {
-   return new Promise(function (resolve, reject) {
-      gfs.files.findOne({
-         filename: filename
-      }, (err, img) => {
-         if (err) {
-            resolve(null)
-         } else {
-            resolve(gfs.createReadStream(img.filename));
-         }
-      })
-   })
+    return new Promise(function (resolve, reject) {
+        gfs.files.findOne({
+            filename: filename
+        }, (err, img) => {
+            if (err) {
+                resolve(null)
+            } else {
+                resolve(gfs.createReadStream(img.filename));
+            }
+        })
+    })
 }

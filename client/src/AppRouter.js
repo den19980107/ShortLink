@@ -8,6 +8,7 @@ import MenuBar from './components/MenuBar/MenuBar'
 import Home from "./pages/Home";
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import Result from './pages/Result/Result';
 
 class AppRouter extends Component {
     state = {
@@ -47,6 +48,7 @@ class AppRouter extends Component {
                 <UserProvider>
                     <Route path="/" component={MenuBar} />
                     <Route exact path="/" component={Home} />
+                    <Route exact path="/result/:id" component={Result} />
                 </UserProvider>
 
                 <Route exact path="/login" component={Login} />

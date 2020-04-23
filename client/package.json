@@ -12,6 +12,7 @@
         "fs": "0.0.1-security",
         "marked": "^0.8.0",
         "prop-types": "^15.6.2",
+        "qrcode.react": "^1.0.0",
         "react": "^16.7.0",
         "react-bootstrap": "^1.0.0-beta.16",
         "react-dom": "^16.7.0",

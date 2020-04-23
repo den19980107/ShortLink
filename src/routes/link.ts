@@ -6,8 +6,31 @@ const router = express.Router();
 
 
 router.post("/", async (req: Request, res: Response) => {
-    let { url } = req.body;
-    let result = await ShortLinkModel.createShortLink(ShortLinkType.url, url);
+    let { url, type } = req.body;
+    let result;
+    switch (type) {
+        case ShortLinkType.url:
+            result = await ShortLinkModel.createShortLink(ShortLinkType.url, req.user.id, url);
+            break;
+        case ShortLinkType.file:
+            result = await ShortLinkModel.createShortLink(ShortLinkType.file, req.user.id, url);
+            break;
+        case ShortLinkType.email:
+            result = await ShortLinkModel.createShortLink(ShortLinkType.email, req.user.id, url);
+            break;
+        case ShortLinkType.image:
+            result = await ShortLinkModel.createShortLink(ShortLinkType.image, req.user.id, url);
+            break;
+        case ShortLinkType.video:
+            result = await ShortLinkModel.createShortLink(ShortLinkType.video, req.user.id, url);
+            break;
+        case ShortLinkType.location:
+            result = await ShortLinkModel.createShortLink(ShortLinkType.location, req.user.id, url);
+            break;
+        case ShortLinkType.phoneNumber:
+            result = await ShortLinkModel.createShortLink(ShortLinkType.phoneNumber, req.user.id, url);
+            break;
+    }
     if (result) {
         res.status(200).json({ message: "success", data: result })
     } else {

@@ -14,6 +14,10 @@ import config from './config/default';
 import authRoutes from './routes/auth-routes';
 import userRoutes from './routes/user';
 import linkRoutes from './routes/link';
+import forwardRoutes from './routes/forward';
+import videoRoute from './routes/video';
+import imageRoute from './routes/image';
+import fileRoute from './routes/file'
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -65,7 +69,10 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use('/api/user', userRoutes);
 app.use("/api/link", linkRoutes)
-
+app.use('/api/video', videoRoute);
+app.use('/api/image', imageRoute);
+app.use('/api/file', fileRoute)
+app.use("/", forwardRoutes);
 if (config.mode == 'production') {
     app.use(express.static('client/build'))
     app.get('/*', function (req, res) {
