@@ -5,7 +5,7 @@ import { getUploader, findFileByFileName } from '../common/upload';
 import mongoose from 'mongoose'
 import config from '../config/keys';
 import { ObjectID } from 'mongodb'
-import { FileModel, FileDocument, File } from '../models/file';
+import { FileModel, FileDocument, File } from '../models/File';
 const router = express.Router();
 const fileUploader = getUploader('file');
 
