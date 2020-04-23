@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import shortid from 'shortid';
 import { modelHelper } from "./modelHelper";
+import { ObjectID } from 'mongodb';
 
 export enum ShortLinkType {
     url = "url",
@@ -58,6 +59,13 @@ export class ShortLinkModel extends modelHelper {
     static async getByShortLinkId(id: string): Promise<ShortLinkDocument> {
         let shortLink = await this.getById(id, ShortLink);
         return shortLink;
+    }
+
+    static async getByUserId(id: string): Promise<Array<ShortLinkDocument>> {
+        let shortLinks = await ShortLink.find({
+            createBy: id
+        })
+        return shortLinks
     }
 }
 export const ShortLink = mongoose.model<ShortLinkDocument>("ShortLink", shortLinkSchema);

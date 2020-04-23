@@ -7,6 +7,14 @@ import './SubmitTab.css'
 import ImageUploader from '../ImageUploader/ImageUploader'
 import VideoUploader from '../VideoUploader/VideoUploader'
 import FileUploader from '../FileUploader/FileUploader';
+
+// import icon
+import LanguageIcon from '@material-ui/icons/Language';
+import PhotoIcon from '@material-ui/icons/Photo';
+import YouTubeIcon from '@material-ui/icons/YouTube';
+import AttachmentIcon from '@material-ui/icons/Attachment';
+import RoomIcon from '@material-ui/icons/Room';
+
 const SubmitTab = ({ onChange }) => {
     const [data, setData] = useState({ type: null, value: "" });
     const [inputUrl, setInputUrl] = useState("");
@@ -63,31 +71,31 @@ const SubmitTab = ({ onChange }) => {
             <div className="tabContainer">
                 <div className="tabItemContainer">
                     <div className={key == "url" ? "tabItem-active" : "tabItem"} onClick={() => changeTab("url")}>
-                        <span>網址</span>
+                        <span><LanguageIcon></LanguageIcon>網址</span>
                     </div>
                 </div>
                 <div className="tabItemContainer">
                     <div className={key == "image" ? "tabItem-active" : "tabItem"} onClick={() => changeTab("image")}>
-                        <span>照片</span>
+                        <span><PhotoIcon></PhotoIcon>照片</span>
                     </div>
                 </div>
                 <div className="tabItemContainer">
                     <div className={key == "video" ? "tabItem-active" : "tabItem"} onClick={() => changeTab("video")}>
-                        <span>影片</span>
+                        <span><YouTubeIcon></YouTubeIcon>影片</span>
                     </div>
                 </div>
                 <div className="tabItemContainer">
                     <div className={key == "file" ? "tabItem-active" : "tabItem"} onClick={() => changeTab("file")}>
-                        <span>檔案</span>
+                        <span><AttachmentIcon></AttachmentIcon>檔案</span>
                     </div>
                 </div>
                 <div className="tabItemContainer">
                     <div className={key == "location" ? "tabItem-active" : "tabItem"} onClick={() => changeTab("location")}>
-                        <span>地址</span>
+                        <span><RoomIcon></RoomIcon>地址</span>
                     </div>
                 </div>
             </div>
-            <div style={{ padding: "2rem 1rem" }}>
+            <div style={{ padding: "1rem 1rem 2rem 1rem" }}>
                 {key === "url" &&
                     <div>
                         <h3>縮短網址</h3>

@@ -13,6 +13,7 @@
 }
 
 .tabItem{
+    color: #333;
     padding: 0.5rem;
     border-radius: 2rem;
     display: flex;
@@ -29,7 +30,33 @@
 }
 
 @media only screen and (max-width: 600px) {   
-    .tabItemContainer{
+    .tabItem-active{
+        font-size: 14px;
         padding: 0.5rem;
+    }
+    .tabItem{
+        font-size: 14px;
+        padding: 0.5rem;
+    }
+    .tabItemContainer{
+        padding: 0.5rem 0;
+    }
+}
+
+@media only screen and (max-width: 375px) {   
+    .tabContainer{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    .tabItemContainer{
+        justify-content: flex-start;
+        flex: none !important;
+    }
+    .tabItem{
+        width: 100px;
+    }
+    .tabItem-active{
+        width: 100px;
     }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Router, Route } from "react-router-dom";
 import UserProvider from "./context/UserProvider";
+import MenuBarStatusProvider from './context/MenuBarStatusProvider';
 import history from "./history";
 
 import MenuBar from './components/MenuBar/MenuBar'
@@ -9,6 +10,7 @@ import Home from "./pages/Home";
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Result from './pages/Result/Result';
+import Console from './pages/Console/Console';
 
 class AppRouter extends Component {
     state = {
@@ -46,13 +48,17 @@ class AppRouter extends Component {
         return (
             <Router history={history}>
                 <UserProvider>
-                    <Route path="/" component={MenuBar} />
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/result/:id" component={Result} />
+                    <MenuBarStatusProvider>
+                        <Route path="/" component={MenuBar} />
+                        <Route exact path="/" component={Home} />
+                        <Route exact path="/result/:id" component={Result} />
+                        <Route exact path="/console" component={Console}></Route>
+                        <Route path="/console/:tabName" component={Console}></Route>
+                    </MenuBarStatusProvider>
                 </UserProvider>
 
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/register" component={Register} />
+                <Route exact path="/register/:tabName" component={Register} />
             </Router>
         )
     }
