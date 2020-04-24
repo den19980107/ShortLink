@@ -3,7 +3,7 @@ import { useEffect, useContext } from 'react';
 import UserProvider from '../../context/UserProvider';
 import axios from 'axios';
 import QRCode from 'qrcode.react';
-
+import './ShortLink.css'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Table, Menu, Dropdown, Input, message, Modal } from 'antd'
 import config from '../../config/default';
@@ -38,6 +38,7 @@ const ShortLinkList = () => {
             title: '網址',
             dataIndex: '_id',
             key: '_id',
+            width: 250,
             render: id => {
                 return <a href={`${config.serverUrl}/${id}`}>{`${config.serverUrl}/${id}`}</a>
             },
@@ -45,7 +46,9 @@ const ShortLinkList = () => {
         {
             title: '短網址類型',
             dataIndex: 'type',
+            width: 130,
             key: 'type',
+            align: "center",
             render: type => {
                 let displayString = "";
                 switch (type) {
@@ -75,8 +78,10 @@ const ShortLinkList = () => {
         },
         {
             title: '點擊數',
+            width: 100,
             dataIndex: 'history',
             key: 'history',
+            align: "center",
             render: history => {
                 return <span>{history && history.length}</span>
             },
@@ -84,6 +89,8 @@ const ShortLinkList = () => {
         {
             title: '動作',
             key: 'action',
+            width: 100,
+            align: "center",
             render: (text, record) => (
                 <Dropdown overlay={menu} trigger={['click']} onClick={() => setNowEditRecord(record)}>
                     <MoreVertIcon></MoreVertIcon>
@@ -145,9 +152,9 @@ const ShortLinkList = () => {
             <Search
                 placeholder="透過標題搜尋短網址"
                 onSearch={(e) => setSearchWord(e)}
-                style={{ width: "30%", margin: "1rem 0" }}
+                className="searchBox"
             />
-            <Table style={{ background: "white", width: "100%" }} scroll={{ x: 500, y: 300 }} dataSource={displayData} columns={columns} />
+            <Table style={{ background: "white", width: "100%" }} scroll={{ x: 800, y: 300 }} dataSource={displayData} columns={columns} />
         </div>
     );
 };
