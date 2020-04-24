@@ -9,7 +9,9 @@ const router = express.Router();
 router.get("/:shortLinkId", async (req: Request, res: Response) => {
     const id = req.params.shortLinkId;
     let shortLink = await ShortLinkModel.getByShortLinkId(id);
-    res.redirect(shortLink.originalData)
+    if (shortLink && shortLink.originalData) {
+        res.redirect(shortLink.originalData)
+    }
     let userAgent = req.header('user-agent')
     let userIP = getClientIp(req)
     const deviceDetector = new DeviceDetector();
