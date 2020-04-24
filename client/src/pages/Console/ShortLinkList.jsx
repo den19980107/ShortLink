@@ -2,9 +2,10 @@ import React from 'react';
 import { useEffect, useContext } from 'react';
 import UserProvider from '../../context/UserProvider';
 import axios from 'axios';
+import QRCode from 'qrcode.react';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Table, Menu, Dropdown, Input } from 'antd'
+import { Table, Menu, Dropdown, Input, message, Modal } from 'antd'
 import config from '../../config/default';
 import { useState } from 'react';
 
@@ -14,6 +15,7 @@ const ShortLinkList = () => {
     const [myShortLinks, setMyShortLinks] = useState([]);
     const [displayData, setDisplayData] = useState([]);
     const [searchWord, setSearchWord] = useState("");
+    const [nowEditRecord, setNowEditRecord] = useState(null);
     const user = useContext(UserProvider.context);
 
     useEffect(() => {
@@ -37,13 +39,34 @@ const ShortLinkList = () => {
             dataIndex: '_id',
             key: '_id',
             render: id => {
-                return <a>{`${config.serverUrl}/${id}`}</a>
+                return <a href={`${config.serverUrl}/${id}`}>{`${config.serverUrl}/${id}`}</a>
             },
         },
         {
             title: '短網址類型',
             dataIndex: 'type',
             key: 'type',
+            render: type => {
+                let displayString = "";
+                switch (type) {
+                    case "file":
+                        displayString = "檔案"
+                        break;
+                    case "video":
+                        displayString = "影片"
+                        break;
+                    case "image":
+                        displayString = "圖片"
+                        break;
+                    case "location":
+                        displayString = "位址"
+                        break;
+                    case "url":
+                        displayString = "網址"
+                        break;
+                }
+                return <span>{displayString}</span>
+            },
         },
         {
             title: '原始連結',
@@ -52,41 +75,49 @@ const ShortLinkList = () => {
         },
         {
             title: '點擊數',
-            dataIndex: '',
-            key: '',
+            dataIndex: 'history',
+            key: 'history',
+            render: history => {
+                return <span>{history && history.length}</span>
+            },
         },
         {
             title: '動作',
             key: 'action',
             render: (text, record) => (
-                <Dropdown overlay={menu} trigger={['click']}>
+                <Dropdown overlay={menu} trigger={['click']} onClick={() => setNowEditRecord(record)}>
                     <MoreVertIcon></MoreVertIcon>
                 </Dropdown>
             ),
         },
     ];
 
+    const handleShowQRcode = () => {
+        console.log(nowEditRecord)
+        Modal.info({
+            title: 'QRCode',
+            content: (
+                <div style={{ display: "flex", justifyContent: "center", padding: "1rem" }}>
+                    <QRCode value={`${config.serverUrl}/${nowEditRecord._id}`}></QRCode>
+                </div>
+            ),
+            onOk() { },
+        });
+    }
+
     const menu = (
         <Menu>
-            <Menu.Item>
-                <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-                    QRCode
-            </a>
+            <Menu.Item onClick={handleShowQRcode}>
+                <span>QRCode</span>
             </Menu.Item>
             <Menu.Item>
-                <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-                    檢視數據
-            </a>
+                <span>檢視數據</span>
             </Menu.Item>
             <Menu.Item>
-                <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
-                    編輯連結
-            </a>
+                <span>編輯連結</span>
             </Menu.Item>
             <Menu.Item>
-                <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
-                    刪除連結
-            </a>
+                <span>刪除連結</span>
             </Menu.Item>
         </Menu>
     );
@@ -116,7 +147,7 @@ const ShortLinkList = () => {
                 onSearch={(e) => setSearchWord(e)}
                 style={{ width: "30%", margin: "1rem 0" }}
             />
-            <Table style={{ background: "white" }} dataSource={displayData} columns={columns} />
+            <Table style={{ background: "white", width: "100%" }} scroll={{ x: 500, y: 300 }} dataSource={displayData} columns={columns} />
         </div>
     );
 };

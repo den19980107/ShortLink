@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express'
 import { UserDocument, User, UserModel } from '../models/user';
 import crypto from 'crypto'
 import { ShortLinkModel } from '../models/ShortLink';
+import { HistoryModel } from '../models/History';
 const router = express.Router();
 
 // 取得目前登入的 user 資料
@@ -138,8 +139,22 @@ async function _getApiKey(req: Request, res: Response) {
 async function _getMyShrinkLink(req: Request, res: Response) {
     const userId = req.user.id;
     let shortLinks = await ShortLinkModel.getByUserId(userId);
-    if (shortLinks) {
-        res.status(200).json(shortLinks)
+    let sendData = []
+    for (let i = 0; i < shortLinks.length; i++) {
+        const link = shortLinks[i];
+        let linkHistory = await HistoryModel.getHistorysByShortLinkId(link.id);
+
+        let tempData = {
+            _id: shortLinks[i]._id,
+            originalData: shortLinks[i].originalData,
+            createBy: shortLinks[i].createBy,
+            type: shortLinks[i].type,
+            history: linkHistory
+        }
+        sendData.push(tempData)
+    }
+    if (sendData) {
+        res.status(200).json(sendData)
     } else {
         res.status(404).json({ errors: [{ msg: "沒有短連結" }] })
     }
