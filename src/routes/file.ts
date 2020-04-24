@@ -32,13 +32,12 @@ router.get('/:fileId', async function (req: Request, res: Response) {
         gfs.files.findOne({
             filename: fileData.fileName
         }, (err, file) => {
-            //check if image exists
+            //check if file exists
             if (!file || file.length === 0) {
                 return res.status(404).json({
                     err: 'No file exists'
                 })
             }
-            //check if image
             const readstream = gfs.createReadStream(file.filename);
             readstream.pipe(res);
         });

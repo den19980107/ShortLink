@@ -39,7 +39,7 @@ router.get('/:imageId', async function (req: Request, res: Response) {
                 })
             }
             //check if image
-            if (img.contentType === 'image/jpg' || img.contentType === 'image/jpeg' || img.contentType === "image/png") {
+            if (img.contentType.includes('image/')) {
                 const readstream = gfs.createReadStream(img.filename);
                 readstream.pipe(res);
             } else {
