@@ -3,7 +3,7 @@ import ShortLinkList from './ShortLinkList';
 import UserProvider from '../../context/UserProvider';
 import MenuBarStatusProvider from '../../context/MenuBarStatusProvider'
 import './Console.css'
-import donateImage from '../../assets/donate.jpg';
+// import donateImage from '../../assets/donate.jpg';
 import { Input, Button } from 'antd'
 import history from '../../history';
 import { Link, useParams } from 'react-router-dom';
@@ -48,7 +48,7 @@ const Console = () => {
                         </div>
                         <div style={{ padding: "1rem", }}>
                             <h4 style={{ color: "#333" }}>斗內我ლ(•ω •ლ)</h4>
-                            <img style={{ width: "100%" }} src={donateImage}></img>
+                            {/* <img style={{ width: "100%" }} src={donateImage}></img> */}
                         </div>
                     </React.Fragment>
                 }
