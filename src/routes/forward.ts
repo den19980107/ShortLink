@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express'
 import DeviceDetector from "device-detector-js";
 import { ShortLinkModel, ShortLinkType } from '../models/ShortLink';
 import { History, HistoryModel } from '../models/History';
+import config from '../config/default';
 const router = express.Router();
 
 
@@ -11,6 +12,8 @@ router.get("/:shortLinkId", async (req: Request, res: Response) => {
     let shortLink = await ShortLinkModel.getByShortLinkId(id);
     if (shortLink && shortLink.originalData) {
         res.redirect(shortLink.originalData)
+    } else {
+        res.redirect(`${config.clientUrl}/`);
     }
     let userAgent = req.header('user-agent')
     let userIP = getClientIp(req)
