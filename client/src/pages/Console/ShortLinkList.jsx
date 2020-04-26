@@ -8,6 +8,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Table, Menu, Dropdown, Input, message, Modal } from 'antd'
 import config from '../../config/default';
 import { useState } from 'react';
+import history from '../../history';
 
 const { Search } = Input;
 
@@ -112,12 +113,15 @@ const ShortLinkList = () => {
         });
     }
 
+    const handleShowReport = () => {
+        history.push(`/reports/${nowEditRecord._id}`);
+    }
     const menu = (
         <Menu>
             <Menu.Item onClick={handleShowQRcode}>
                 <span>QRCode</span>
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item onClick={handleShowReport}>
                 <span>檢視數據</span>
             </Menu.Item>
             <Menu.Item>

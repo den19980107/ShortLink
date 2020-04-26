@@ -11,6 +11,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Result from './pages/Result/Result';
 import Console from './pages/Console/Console';
+import Reports from './pages/Reports/Reports';
 
 class AppRouter extends Component {
     state = {
@@ -54,11 +55,12 @@ class AppRouter extends Component {
                         <Route exact path="/result/:id" component={Result} />
                         <Route exact path="/console" component={Console}></Route>
                         <Route path="/console/:tabName" component={Console}></Route>
+                        <Route path="/reports/:id" component={Reports}></Route>
                     </MenuBarStatusProvider>
                 </UserProvider>
 
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/register/:tabName" component={Register} />
+                <Route exact path="/register" component={Register} />
             </Router>
         )
     }

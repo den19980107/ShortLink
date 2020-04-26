@@ -11,15 +11,19 @@
         "bootstrap": "^4.4.1",
         "dotenv": "^8.2.0",
         "fs": "0.0.1-security",
+        "iplocation": "^7.1.0",
         "marked": "^0.8.0",
+        "moment": "^2.24.0",
         "prop-types": "^15.6.2",
         "qrcode.react": "^1.0.0",
         "react": "^16.7.0",
         "react-bootstrap": "^1.0.0-beta.16",
         "react-dom": "^16.7.0",
+        "react-map-gl": "^5.2.5",
         "react-markdown": "^4.3.1",
         "react-router-dom": "^5.0.0",
-        "react-scripts": "^3.3.0"
+        "react-scripts": "^3.4.1",
+        "recharts": "^1.8.5"
     },
     "scripts": {
         "start": "react-scripts start",
