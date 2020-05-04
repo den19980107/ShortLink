@@ -14,6 +14,7 @@ router.get("/:shortLinkId", async (req: Request, res: Response) => {
         res.redirect(shortLink.originalData)
     } else {
         res.redirect(`${config.clientUrl}/`);
+        return
     }
     let userAgent = req.header('user-agent')
     let userIP = getClientIp(req)

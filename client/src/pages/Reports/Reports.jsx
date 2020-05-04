@@ -4,9 +4,12 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import ipLocation from 'iplocation';
 
+// import component
+import Loader from '../../components/Loader/Loader'
 import { Table } from 'antd'
 import Map from './Map';
 import ClickPerDay from './ClickPerDay';
+import Platform from './Platform';
 const Reports = () => {
     let { id } = useParams();
     let [history, setHistory] = useState(null);
@@ -100,9 +103,19 @@ const Reports = () => {
                                 </div>
                             </div>
                         </div>
+                        <div style={{ display: "flex" }}>
+                            <div>
+                                <h3>平台分佈</h3>
+                                <div style={{ width: "500px", height: "500px" }}>
+                                    <Platform datas={history}></Platform>
+                                </div>
+                            </div>
+                        </div>
                     </React.Fragment>
                     :
-                    <h1>loading..</h1>
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <Loader size={64}></Loader>
+                    </div>
                 }
             </div>
         </div>
