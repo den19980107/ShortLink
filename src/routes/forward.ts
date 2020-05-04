@@ -38,6 +38,7 @@ router.get("/:shortLinkId", async (req: Request, res: Response) => {
 const getClientIp = (req) => {
     let x_ip = req.headers['x-forwarded-for']
     if (!x_ip) x_ip = req.connection.remoteAddress
+    console.log(`user IP = ${x_ip}`)
     return x_ip
 }
 
