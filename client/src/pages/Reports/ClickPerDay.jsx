@@ -47,7 +47,7 @@ const ClickPerDay = ({ datas }) => {
 
                 <YAxis dataKey='value' name='Value' />
 
-                <Bar dataKey="value" fill="#82ca9d" />
+                <Bar barSize={20} dataKey="value" fill="#82ca9d" />
 
             </BarChart>
         </ResponsiveContainer>
