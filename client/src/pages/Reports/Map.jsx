@@ -34,14 +34,15 @@ const Map = ({ datas }) => {
         }
         console.log(marks)
         setMarks(marks);
-
-        setViewport({
-            width: "100%",
-            height: "100%",
-            latitude: marks[0].latitude,
-            longitude: marks[0].longitude,
-            zoom: 4
-        })
+        if (marks.length !== 0) {
+            setViewport({
+                width: "100%",
+                height: "100%",
+                latitude: marks[0].latitude,
+                longitude: marks[0].longitude,
+                zoom: 4
+            })
+        }
     }, [])
 
     return (
