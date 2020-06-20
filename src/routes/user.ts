@@ -146,6 +146,7 @@ async function _getMyShrinkLink(req: Request, res: Response) {
 
         let tempData = {
             _id: shortLinks[i]._id,
+            title: shortLinks[i].title,
             originalData: shortLinks[i].originalData,
             createBy: shortLinks[i].createBy,
             type: shortLinks[i].type,

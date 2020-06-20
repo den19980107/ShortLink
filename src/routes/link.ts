@@ -7,29 +7,29 @@ const router = express.Router();
 
 
 router.post("/", async (req: Request, res: Response) => {
-    let { url, type } = req.body;
+    let { url, type, title } = req.body;
     let result;
     switch (type) {
         case ShortLinkType.url:
-            result = await ShortLinkModel.createShortLink(ShortLinkType.url, req.user.id, url);
+            result = await ShortLinkModel.createShortLink(ShortLinkType.url, req.user.id, url, title);
             break;
         case ShortLinkType.file:
-            result = await ShortLinkModel.createShortLink(ShortLinkType.file, req.user.id, url);
+            result = await ShortLinkModel.createShortLink(ShortLinkType.file, req.user.id, url, title);
             break;
         case ShortLinkType.email:
-            result = await ShortLinkModel.createShortLink(ShortLinkType.email, req.user.id, url);
+            result = await ShortLinkModel.createShortLink(ShortLinkType.email, req.user.id, url, title);
             break;
         case ShortLinkType.image:
-            result = await ShortLinkModel.createShortLink(ShortLinkType.image, req.user.id, url);
+            result = await ShortLinkModel.createShortLink(ShortLinkType.image, req.user.id, url, title);
             break;
         case ShortLinkType.video:
-            result = await ShortLinkModel.createShortLink(ShortLinkType.video, req.user.id, url);
+            result = await ShortLinkModel.createShortLink(ShortLinkType.video, req.user.id, url, title);
             break;
         case ShortLinkType.location:
-            result = await ShortLinkModel.createShortLink(ShortLinkType.location, req.user.id, url);
+            result = await ShortLinkModel.createShortLink(ShortLinkType.location, req.user.id, url, title);
             break;
         case ShortLinkType.phoneNumber:
-            result = await ShortLinkModel.createShortLink(ShortLinkType.phoneNumber, req.user.id, url);
+            result = await ShortLinkModel.createShortLink(ShortLinkType.phoneNumber, req.user.id, url, title);
             break;
     }
     if (result) {

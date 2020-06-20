@@ -17,6 +17,7 @@ import RoomIcon from '@material-ui/icons/Room';
 
 const SubmitTab = ({ onChange }) => {
     const [data, setData] = useState({ type: null, value: "" });
+    const [title, setTitle] = useState(null)
     const [inputUrl, setInputUrl] = useState("");
     const [inputLocation, setInputLocation] = useState("");
 
@@ -24,18 +25,21 @@ const SubmitTab = ({ onChange }) => {
     const handleUrlChange = (e) => {
         setInputUrl(e.target.value)
         setData({
+            title: title,
             type: "url",
             url: e.target.value
         })
     }
     const handleImageUpload = (url) => {
         setData({
+            title: title,
             type: "image",
             url: url
         })
     }
     const handelVideoUpload = (url) => {
         setData({
+            title: title,
             type: "video",
             url: url
         })
@@ -43,6 +47,7 @@ const SubmitTab = ({ onChange }) => {
 
     const handleFileUpload = (url) => {
         setData({
+            title: title,
             type: "file",
             url: url
         })
@@ -56,6 +61,7 @@ const SubmitTab = ({ onChange }) => {
             queryString += `+${locationArray[i]}`
         }
         setData({
+            title: title,
             type: "location",
             url: `https://www.google.com/maps/search/?api=1&query=${queryString}`
         })
@@ -96,6 +102,10 @@ const SubmitTab = ({ onChange }) => {
                 </div>
             </div>
             <div style={{ padding: "1rem 1rem 2rem 1rem" }}>
+                <div style={{ marginBottom: "2rem" }}>
+                    <h3>縮網址名稱</h3>
+                    <Input placeholder="非必填" value={title} onChange={(e) => { setTitle(e.target.value) }}></Input>
+                </div>
                 {key === "url" &&
                     <div>
                         <h3>縮短網址</h3>

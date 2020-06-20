@@ -14,6 +14,7 @@ export enum ShortLinkType {
 }
 export type ShortLinkDocument = mongoose.Document & {
     _id: string,
+    title: string,
     type: ShortLinkType,
     createBy: string,
     originalData: string
@@ -23,6 +24,9 @@ let shortLinkSchema = new mongoose.Schema({
     _id: {
         type: String,
         default: shortid.generate
+    },
+    title: {
+        type: String
     },
     createBy: {
         type: String
@@ -39,12 +43,13 @@ let shortLinkSchema = new mongoose.Schema({
 
 export class ShortLinkModel extends modelHelper {
 
-    static async createShortLink(type: ShortLinkType, userId: string, originalData?: string): Promise<ShortLinkModel> {
+    static async createShortLink(type: ShortLinkType, userId: string, originalData?: string, title?: string): Promise<ShortLinkModel> {
 
         let newShortLink = new ShortLink({
             type: type,
             createBy: userId,
-            originalData: originalData
+            originalData: originalData,
+            title: title
         });
 
         let result = await newShortLink.save();

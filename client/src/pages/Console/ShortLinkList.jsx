@@ -36,6 +36,15 @@ const ShortLinkList = () => {
 
     const columns = [
         {
+            title: '縮網址名稱',
+            dataIndex: 'title',
+            key: 'title',
+            width: 150,
+            render: title => {
+                return <span>{title ? title : "無"}</span>
+            }
+        },
+        {
             title: '網址',
             dataIndex: '_id',
             key: '_id',
