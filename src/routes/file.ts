@@ -38,11 +38,17 @@ router.get('/:fileId', async function (req: Request, res: Response) {
                     err: 'No file exists'
                 })
             }
-            res.setHeader('Content-Disposition', 'attachment; filename=' + file.filename);
-            res.setHeader('Content-Transfer-Encoding', 'binary');
-            res.setHeader('Content-Type', 'application/octet-stream');
-            const readstream = gfs.createReadStream(file.filename);
-            readstream.pipe(res);
+            if (file.contentType === "text/html") {
+                res.setHeader('Content-Type', 'text/html');
+                const readstream = gfs.createReadStream(file.filename);
+                readstream.pipe(res);
+            } else {
+                res.setHeader('Content-Disposition', 'attachment; filename=' + file.filename);
+                res.setHeader('Content-Transfer-Encoding', 'binary');
+                res.setHeader('Content-Type', 'application/octet-stream');
+                const readstream = gfs.createReadStream(file.filename);
+                readstream.pipe(res);
+            }
         });
     } else {
         res.status(404).json({ errors: [{ msg: "找不到檔案" }] })
